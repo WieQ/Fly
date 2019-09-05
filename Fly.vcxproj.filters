@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów\Character">
+      <UniqueIdentifier>{eabc4bf1-2804-435f-9e7e-128a95cc2c73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\Animation">
+      <UniqueIdentifier>{bd5397a5-373d-44f7-b481-bd5c1b30448b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\ToDo">
+      <UniqueIdentifier>{53772a2f-5d0b-49ae-8844-0b3cd6fee39c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\Enemies">
+      <UniqueIdentifier>{37eeff5a-3ca9-48a8-9ffc-6ee8f417bfe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\Enemies\Boss">
+      <UniqueIdentifier>{6d76aa60-a4b2-47b9-9185-2adce9dddbf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\Projectiles">
+      <UniqueIdentifier>{55af19d8-a6e8-408b-826f-bf62f7057ed4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\Projectiles\BaseProjectile">
+      <UniqueIdentifier>{4333fc9a-2f84-41fc-86ea-da5cc1d80043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\Projectiles\SinusProjectile">
+      <UniqueIdentifier>{6705c80b-7203-45da-a314-2788f86013f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\Projectiles\TargetProjectile">
+      <UniqueIdentifier>{6bc434b2-4d81-460b-81a2-7e879fc8841e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\Enemies\BaseEnemies">
+      <UniqueIdentifier>{a74bf489-ec5c-4603-914b-1ed53ee30714}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Pliki zasobów\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Pliki zasobów\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1.h">
+      <Filter>Pliki zasobów\Enemies\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseProjectile.h">
+      <Filter>Pliki zasobów\Projectiles\BaseProjectile</Filter>
+    </ClInclude>
+    <ClInclude Include="SinusProjectile.h">
+      <Filter>Pliki zasobów\Projectiles\SinusProjectile</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetProjectile.h">
+      <Filter>Pliki zasobów\Projectiles\TargetProjectile</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseEnemy.h">
+      <Filter>Pliki zasobów\Enemies\BaseEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaboleEnemy.h">
+      <Filter>Pliki zasobów\Enemies</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Fly.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Pliki zasobów\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Pliki zasobów\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1.cpp">
+      <Filter>Pliki zasobów\Enemies\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseProjectile.cpp">
+      <Filter>Pliki zasobów\Projectiles\BaseProjectile</Filter>
+    </ClCompile>
+    <ClCompile Include="SinusProjectile.cpp">
+      <Filter>Pliki zasobów\Projectiles\SinusProjectile</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseEnemy.cpp">
+      <Filter>Pliki zasobów\Enemies\BaseEnemies</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ToDo.txt">
+      <Filter>Pliki zasobów\ToDo</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

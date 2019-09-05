@@ -1,0 +1,15 @@
+usun¹æ strukturê Vector zast¹piæ j¹ dedykowan¹ class¹ Vector2 z SFML; <Done>
+sparwdziæ origin point; <Done>
+ustawiæ frame rate na 60 ticków na sekundê; <Chyba Done>
+zacz¹æ kolizjê. (new)kolizja ³atwa boudning blocks; <Done>
+dodaæ opcjê strza³u; <Done>
+dodaæ pierwszych przeciwników; <Done>
+Lepszy Sprite Postaci; <Done>
+Lepsze Sprite Projectile; <Done>
+stwoyrzyæ lepszych przeciwników; <Done> <Info: Movement Poprawiony mniej dok³adny ale trzyma siê podstawionej prêdkoœci>
+stworzyæ 1 bossa;
+stworzyæ klasê bazow¹ do przeciwników i na jej podstawie tworzyæ ró¿nych przeciwników<Done>;
+stworzyæ 1 stage;
+power upy;
+umiejêtnoœci;
+
