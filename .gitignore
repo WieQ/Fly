@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+.vs/Fly/v15/Browse.VC.db
+.vs/Fly/v15/.suo
