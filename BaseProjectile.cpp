@@ -2,7 +2,7 @@
 #include "BaseProjectile.h"
 #include <iostream>
 
-BaseProjectile::BaseProjectile(std::string p, sf::Vector2f Op, sf::Vector2<float> po, float Ysp, float Xsp )
+BaseProjectile::BaseProjectile(std::string p, sf::Vector2f Op, sf::Vector2<float> po, float Ysp, float Xsp,double ang )
 {
 	path = p;
 	projectile.loadFromFile(path);
@@ -10,7 +10,7 @@ BaseProjectile::BaseProjectile(std::string p, sf::Vector2f Op, sf::Vector2<float
 	position = po;
 	Sprojectile.setPosition(position);
 	Sprojectile.setOrigin(Op);
-
+	Sprojectile.setRotation(ang);
 	speed.y = Ysp;
 	speed.x = Xsp;
 

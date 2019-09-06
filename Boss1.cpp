@@ -20,6 +20,7 @@ Boss1::Boss1(sf::FloatRect w)
 	pro.resize(MaxCount);
 
 	cd = 0;
+	cd2 = 0;
 	
 	Health = 2000;
 	alive = true;
@@ -81,7 +82,6 @@ void Boss1::Tick(sf::Vector2f T)
 				switch (path)
 				{
 				case 0:	
-					if (cd-- <= 0)
 						shoting_1_stage();
 					if (next_path-- == 0)
 					{
@@ -94,7 +94,6 @@ void Boss1::Tick(sf::Vector2f T)
 					}
 					break;
 				case 1:
-					if (cd-- <= 0)
 						shoting_1_stage();
 					if (next_path-- == 0)
 					{
@@ -107,7 +106,6 @@ void Boss1::Tick(sf::Vector2f T)
 					}
 					break;
 				case 2:
-					if (cd-- <= 0)
 						shoting_1_stage();
 					if (next_path-- == 0)
 					{
@@ -120,7 +118,6 @@ void Boss1::Tick(sf::Vector2f T)
 					}
 					break;
 				case 3:
-					if (cd-- <= 0)
 						shoting_1_stage();
 					if (next_path-- == 0)
 					{
@@ -143,7 +140,7 @@ void Boss1::Tick(sf::Vector2f T)
 		case 2:
 			
 			if (ReachedGoal())
-				shoting_2_stage();
+					shoting_2_stage();
 			else
 				Moving();
 			break;
@@ -200,60 +197,63 @@ void Boss1::Moving()
 
 void Boss1::shoting_1_stage()
 {
-	if (shot_target != sf::Vector2f(0.0, 0.0))
+	if (cd-- <= 0)
 	{
-		sf::Vector2f tan = shot_target - SBoss.getPosition();
-		double alpha = atan2(tan.y, tan.x);
-		switch (shoot_type)
+		if (shot_target != sf::Vector2f(0.0, 0.0))
 		{
-		case 1:
-			for (double i = 0.0; i < 3.3; i += 0.1)
+			sf::Vector2f tan = shot_target - SBoss.getPosition();
+			double alpha = atan2(tan.y, tan.x);
+			switch (shoot_type)
 			{
-				if (ProCount >= MaxCount)
-					ProCount = 0;
-				if (pro[ProCount] != nullptr)
-					delete pro[ProCount];
-				pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha + i) * 2, cos(alpha + i) * 2);
-				if (ProCount >= MaxCount)
-					ProCount = 0;
-				if (pro[ProCount] != nullptr)
-					delete pro[ProCount];
-				pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha - i) * 2, cos(alpha - i) * 2);
-				cd = 45;
-			}
-			break;
-		case 2:
-			for (double i = 0.0; i < 0.6; i += 0.1)
-			{
-				if (ProCount >= MaxCount)
-					ProCount = 0;
-				if (pro[ProCount] != nullptr)
-					delete pro[ProCount];
-				pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha + i) * 3, cos(alpha + i) * 2);
-				if (ProCount >= MaxCount)
-					ProCount = 0;
-				if (pro[ProCount] != nullptr)
-					delete pro[ProCount];
-				pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha - i) * 3, cos(alpha - i) * 2);
-				cd = 22;
-			}
-			break;
-		case 3:
-			for (double i = 0.0; i < 1.2; i += 0.2)
-			{
-				if (ProCount >= MaxCount)
-					ProCount = 0;
-				if (pro[ProCount] != nullptr)
-					delete pro[ProCount];
-				pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha + i) * 3, cos(alpha + i) * 3);
-				if (ProCount >= MaxCount)
-					ProCount = 0;
-				if (pro[ProCount] != nullptr)
-					delete pro[ProCount];
-				pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha - i) * 3, cos(alpha - i) * 3);
-				cd = 2;
-			}
+			case 1:
+				for (double i = 0.0; i < 3.3; i += 0.1)
+				{
+					if (ProCount >= MaxCount)
+						ProCount = 0;
+					if (pro[ProCount] != nullptr)
+						delete pro[ProCount];
+					pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha + i) * 2, cos(alpha + i) * 2);
+					if (ProCount >= MaxCount)
+						ProCount = 0;
+					if (pro[ProCount] != nullptr)
+						delete pro[ProCount];
+					pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha - i) * 2, cos(alpha - i) * 2);
+					cd = 45;
+				}
+				break;
+			case 2:
+				for (double i = 0.0; i < 0.6; i += 0.1)
+				{
+					if (ProCount >= MaxCount)
+						ProCount = 0;
+					if (pro[ProCount] != nullptr)
+						delete pro[ProCount];
+					pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha + i) * 3, cos(alpha + i) * 2);
+					if (ProCount >= MaxCount)
+						ProCount = 0;
+					if (pro[ProCount] != nullptr)
+						delete pro[ProCount];
+					pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha - i) * 3, cos(alpha - i) * 2);
+					cd = 22;
+				}
+				break;
+			case 3:
+				for (double i = 0.0; i < 1.2; i += 0.2)
+				{
+					if (ProCount >= MaxCount)
+						ProCount = 0;
+					if (pro[ProCount] != nullptr)
+						delete pro[ProCount];
+					pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha + i) * 3, cos(alpha + i) * 3);
+					if (ProCount >= MaxCount)
+						ProCount = 0;
+					if (pro[ProCount] != nullptr)
+						delete pro[ProCount];
+					pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha - i) * 3, cos(alpha - i) * 3);
+					cd = 2;
+				}
 
+			}
 		}
 	}
 	
@@ -293,21 +293,47 @@ bool Boss1::ShotCollision(sf::FloatRect a)
 
 void Boss1::shoting_2_stage()
 {
-	sf::Vector2f pstart;
-	sf::Vector2f pgoal;
 	sf::Vector2f tan;
 	double alpha;
-	for (int i = 0; i < 2; i++)
+	if (cd-- <= 0)
 	{
-		pstart = sf::Vector2f(rand() % 60 + 220, rand() % 60 + 90);
-		pgoal = sf::Vector2f(rand() % 800 + 1, rand() % 600 + 1);
-		tan = pgoal - SBoss.getPosition();
+		sf::Vector2f pstart;
+		sf::Vector2f pgoal;
+		
+		
+		for (int i = 0; i < 2; i++)
+		{
+			pstart = sf::Vector2f(rand() % 60 + 220, rand() % 60 + 90);
+			pgoal = sf::Vector2f(rand() % 800 + 1, rand() % 600 + 1);
+			tan = pgoal - SBoss.getPosition();
+			alpha = atan2(tan.y, tan.x);
+			if (ProCount >= MaxCount)
+				ProCount = 0;
+			if (pro[ProCount] != nullptr)
+				delete pro[ProCount];
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile1.png", sf::Vector2f(6, 6), SBoss.getPosition(), sin(alpha) * 2, cos(alpha) * 2,alpha *180/3.14 -90);
+		}
+		cd = 1;
+	}
+	if (cd2-- <= 0)
+	{
+		tan = shot_target - SBoss.getPosition();
 		alpha = atan2(tan.y, tan.x);
-		if (ProCount >= MaxCount)
-			ProCount = 0;
-		if (pro[ProCount] != nullptr)
-			delete pro[ProCount];
-		pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), SBoss.getPosition(), sin(alpha) * 2, cos(alpha) * 2);
-		cd = 10;
+		for (double i = 0.0; i < 3.3; i += 0.1)
+		{
+			
+			if (ProCount >= MaxCount)
+				ProCount = 0;
+			if (pro[ProCount] != nullptr)
+				delete pro[ProCount];
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha + i) * 3, cos(alpha + i) * 3);
+			if (ProCount >= MaxCount)
+				ProCount = 0;
+			if (pro[ProCount] != nullptr)
+				delete pro[ProCount];
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile3.png", sf::Vector2f(6, 6), sf::Vector2f(SBoss.getPosition().x, SBoss.getPosition().y), sin(alpha - i) * 3, cos(alpha - i) * 3);
+			
+		}
+		cd2 = 30;
 	}
 }

@@ -14,7 +14,7 @@ protected:
 	sf::FloatRect ProjectileCollision;
 	bool active;
 public:
-	BaseProjectile(std::string p,sf::Vector2f Op/*OriginPoint of Projectile*/, sf::Vector2<float> po, float Ysp, float Xsp = 0);
+	BaseProjectile(std::string p,sf::Vector2f Op/*OriginPoint of Projectile*/, sf::Vector2<float> po, float Ysp, float Xsp = 0, double ang = 0);
 	BaseProjectile() { active = false; path = "brak"; speed.x = 0; speed.y = 0; position.x = 0; position.y = 0; };
 	virtual void Tick();
 	sf::Sprite GetSprite() { return Sprojectile; }

@@ -27,6 +27,7 @@ class Boss1 : public sf::Drawable
 		unsigned int ProCount;
 		unsigned int MaxCount;
 		int cd;
+		int cd2;
 		int Health;
 		int next_path;
 	
