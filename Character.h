@@ -24,6 +24,7 @@ private:
 		sf::Texture Teleport;
 	//Color
 		sf::Color CHitBox;
+		sf::Color CSlowDown;
 	
 	//Sprite
 		sf::Sprite SIdle;

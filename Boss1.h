@@ -15,6 +15,7 @@ class Boss1 : public sf::Drawable
 		sf::Vector2f road;
 		sf::Vector2f road_speed;
 		sf::Vector2f shot_target;
+		sf::Vector2f saved_shot_target;
 		// for Line movement
 		float m;
 		sf::Texture TBoss;
@@ -23,6 +24,7 @@ class Boss1 : public sf::Drawable
 	
 
 		std::vector<BaseProjectile*> pro;
+		short prosprite;
 
 		unsigned int ProCount;
 		unsigned int MaxCount;

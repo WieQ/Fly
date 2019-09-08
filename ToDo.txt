@@ -7,7 +7,7 @@ dodaæ pierwszych przeciwników; <Done>
 Lepszy Sprite Postaci; <Done>
 Lepsze Sprite Projectile; <Done>
 stwoyrzyæ lepszych przeciwników; <Done> <Info: Movement Poprawiony mniej dok³adny ale trzyma siê podstawionej prêdkoœci>
-stworzyæ 1 bossa;
+stworzyæ 1 bossa <Done> 2 stage ;
 stworzyæ klasê bazow¹ do przeciwników i na jej podstawie tworzyæ ró¿nych przeciwników<Done>;
 stworzyæ 1 stage;
 power upy;

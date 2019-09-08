@@ -2,7 +2,6 @@
 #include <iostream>
 #include "Character.h"
 #include "SFML/Window/Keyboard.hpp"
-#include "Animation.h"
 #include "SFML/Window.hpp"
 
 
@@ -24,10 +23,15 @@ Character::Character(sf::FloatRect w): direction(true)
 
 	cd = 0;
 	wsprite = 0;
-
+	sf::Texture temp;
+	sf::Sprite Stemp;
+	temp.loadFromFile("Character/HitBox.png");
+	Stemp.setTexture(temp);
 	HitBox.loadFromFile("Character/HitBox3.png");
 	SHitBox.setTexture(HitBox);
-	CHitBox = SHitBox.getColor();
+	CSlowDown = SHitBox.getColor();
+	CHitBox = sf::Color(76, 0, 130);
+	SHitBox.setColor(CHitBox);
 	SHitBox.setOrigin(2, 2);
 	SHitBox.setPosition(250.0f, 292.0f);
 
@@ -39,6 +43,7 @@ Character::Character(sf::FloatRect w): direction(true)
 	CurrentSprite = SIdle;
 	CurrentSprite.setOrigin(13, 19);
 	CurrentSprite.setScale(1, 1);
+
 	
 
 	moving = sf::Vector2<float>(0.0f, 0.0f);
@@ -49,8 +54,6 @@ Character::Character(sf::FloatRect w): direction(true)
 
 	isMovingX = false;
 	isMovingY = false;
-
-	Walk = new Animation("Character/Walk_Animation/", "Walk", 2);
 }
 
 void Character::Tick(sf::Vector2f Target)
@@ -198,7 +201,7 @@ void Character::SlowDown()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 	{
 		speed = 1.5;
-		SHitBox.setColor(sf::Color(204,220,57));
+		SHitBox.setColor(CSlowDown);
 	}
 	else
 	{
@@ -218,22 +221,20 @@ void Character::Shoting(sf::Vector2f T)
 				ProCount = 0;
 			if (pro[ProCount] != nullptr)
 				delete pro[ProCount];
-			pro[ProCount++] =  new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7,-0.2 );
+			pro[ProCount++] =  new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7,-0.5 );
 		//checking if we aren't overflowing
 			if (ProCount >= MaxCount)
 				ProCount = 0;
 			if (pro[ProCount] != nullptr)
 				delete pro[ProCount];
-			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png",sf::Vector2f(6,6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7,0.2);
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png",sf::Vector2f(6,6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7,0.5);
 		//coldown showing us when we can shoot again  
-			if (teleport_viable)
-			{
+			
 				if (ProCount >= MaxCount)
 					ProCount = 0;
 				if (pro[ProCount] != nullptr)
 					delete pro[ProCount];
-				pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(STeleport.getPosition().x, STeleport.getPosition().y -22), -7, 0);
-			}
+				pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), teleport_viable == true ? sf::Vector2f(STeleport.getPosition().x, STeleport.getPosition().y -22): sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, 0);
 		cd = 5;
 	}
 }
