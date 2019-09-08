@@ -10,7 +10,7 @@
 class Character: public sf::Drawable
 {
 private:
-	//stage collision to detect drawable contet like projecitle z
+	//stage collision to detect drawable contet like projecitle
 	sf::FloatRect world;
 	//Positions;
 		sf::Vector2<float> moving;

@@ -6,6 +6,7 @@
 class BaseEnemy : public sf::Drawable
 {
 protected:
+	// setting up 
 	sf::Vector2f moving;
 	sf::Vector2f startpoint;
 	sf::Vector2f currentposition;

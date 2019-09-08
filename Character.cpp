@@ -8,32 +8,30 @@
 
 Character::Character(sf::FloatRect w): direction(true)
 {
+	
 	canmoveleft = false;
 	canmoveright = false;
 	shoot = false;
 	alive = true;
-	
+
 	world = w;
 
 	speed = 4;
 
 	ProCount = 0;
-	MaxCount = 500;
+	MaxCount = 100;
 	pro.resize(MaxCount);
 
 	cd = 0;
 	wsprite = 0;
-	sf::Texture temp;
-	sf::Sprite Stemp;
-	temp.loadFromFile("Character/HitBox.png");
-	Stemp.setTexture(temp);
+
 	HitBox.loadFromFile("Character/HitBox3.png");
 	SHitBox.setTexture(HitBox);
 	CSlowDown = SHitBox.getColor();
 	CHitBox = sf::Color(76, 0, 130);
 	SHitBox.setColor(CHitBox);
 	SHitBox.setOrigin(2, 2);
-	SHitBox.setPosition(250.0f, 292.0f);
+	
 
 	Teleport.loadFromFile("Character/Teleport.png");
 	STeleport.setTexture(Teleport);
@@ -47,18 +45,19 @@ Character::Character(sf::FloatRect w): direction(true)
 	
 
 	moving = sf::Vector2<float>(0.0f, 0.0f);
-	startpoint = sf::Vector2<float>(250.0f,300.0f);
+	startpoint = sf::Vector2<float>(250.0f,500.0f);
 	CurrentSprite.setPosition(startpoint);
+	SHitBox.setPosition(250.0f, 492.0f);
 	teleportposition = startpoint;
 	
 
 	isMovingX = false;
 	isMovingY = false;
 }
-
+//Function called every frame
 void Character::Tick(sf::Vector2f Target)
 {
-	//Dev
+	//Teleport to shadow
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 	{
 		teleportposition = CurrentSprite.getPosition();
@@ -120,6 +119,7 @@ void Character::Tick(sf::Vector2f Target)
 	}
 }
 
+//Horizontal Movement
 bool Character::MoveX()
 {
 	if (canmoveleft && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -139,6 +139,7 @@ bool Character::MoveX()
 	return false;
 }
 
+//Vertical Movement
 bool Character::MoveY()
 {
 	if (canmoveup && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -156,7 +157,7 @@ bool Character::MoveY()
 	}
 	return false;
 }
-
+//Chceking if we are near the border, if yes we no longer can move in that direction
 void Character::IsNearBorder()
 {
 	canmoveleft = (CurrentSprite.getPosition().x > 64.0f) ? true : false;
@@ -165,6 +166,7 @@ void Character::IsNearBorder()
 	canmovedown = (CurrentSprite.getPosition().y < 530.0f) ? true : false;
 	
 }		
+//Setiing Character Position there is a lot thing we want to setup.
 bool Character::SetPosition()
 {
 	if (alive)
@@ -177,7 +179,7 @@ bool Character::SetPosition()
 
 }
 
-
+//inherited methods which draw character on window
 void Character::draw(sf::RenderTarget& target, sf::RenderStates states)const
 {
 	if (alive)
@@ -196,6 +198,7 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates states)const
 	}
 }
 
+//Checking if we are pressing shift button and if we do reducing movemnt speed
 void Character::SlowDown()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
@@ -219,22 +222,27 @@ void Character::Shoting(sf::Vector2f T)
 		//checking if we aren't overflowing
 			if (ProCount >= MaxCount)
 				ProCount = 0;
+		//if pointer isn't we want to delete that projectile
 			if (pro[ProCount] != nullptr)
 				delete pro[ProCount];
+		//we are asigning new Projectile to pointer and then we are doing increment
 			pro[ProCount++] =  new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7,-0.5 );
 		//checking if we aren't overflowing
 			if (ProCount >= MaxCount)
 				ProCount = 0;
+			//if pointer isn't we want to delete that projectile
 			if (pro[ProCount] != nullptr)
 				delete pro[ProCount];
+			//we are asigning new Projectile to pointer and then we are doing increment
 			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png",sf::Vector2f(6,6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7,0.5);
-		//coldown showing us when we can shoot again  
-			
+		
+		//last projectile is different so it's shooting from teleport location so if we leave our shadow somewhere projectile will be flying from shadow
 				if (ProCount >= MaxCount)
 					ProCount = 0;
 				if (pro[ProCount] != nullptr)
 					delete pro[ProCount];
 				pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), teleport_viable == true ? sf::Vector2f(STeleport.getPosition().x, STeleport.getPosition().y -22): sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, 0);
+		//coldown showing us when we can shoot again  
 		cd = 5;
 	}
 }
@@ -242,7 +250,7 @@ void Character::Shoting(sf::Vector2f T)
 //Collision with bullets from enemies
 bool Character::shotcollision(sf::FloatRect a)
 {
-
+	// creating floatingRect bounding box to compare it with enemy bounding box
 	sf::FloatRect boundigBox;
 	for (unsigned int i = 0; i < MaxCount; ++i)
 	{
