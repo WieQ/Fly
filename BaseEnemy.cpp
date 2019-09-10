@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-BaseEnemy::BaseEnemy(std::string p,sf::Vector2f sp/*startpoint*/, sf::Vector2f g /*goal*/, sf::Vector2f f /*flyout*/, sf::FloatRect w /*World*/, int hp, float ms/*movement speed*/, short s/*shooting style*/)
+BaseEnemy::BaseEnemy(std::string p,sf::Vector2f sp/*startpoint*/, sf::Vector2f f /*flyout*/, sf::FloatRect w /*World*/, int hp, float ms/*movement speed*/, short s/*shooting style*/)
 {
 	alive = true;
 
@@ -15,7 +15,7 @@ BaseEnemy::BaseEnemy(std::string p,sf::Vector2f sp/*startpoint*/, sf::Vector2f g
 	SBaseEnemy.setOrigin(13, 19);
 	SBaseEnemy.setPosition(currentposition);
 	speed = ms;
-	setMovement(g);
+	setMovement(flyout);
 	Health = hp;
 	shooting_style = s;
 	status = 0;
@@ -37,9 +37,10 @@ BaseEnemy::~BaseEnemy()
 	}
 	pro.clear();
 }
+
 void BaseEnemy::Tick(sf::Vector2f T)
 {
-	shoot_target = T;
+	target_position = T;
 	if (ProCount > 0)
 	{
 		for (unsigned int i = 0; i < MaxCount; ++i)
@@ -57,32 +58,9 @@ void BaseEnemy::Tick(sf::Vector2f T)
 	}
 	if (alive)
 	{
-		if (cd-- <= 0 && shooting_style == 0)
+		if(cd-- < 1)
 			Shoting();
-		switch (status)
-		{
-		case 0:
-			Moving();
-
-			if (ReachedGoal())
-			{
-				status++;
-				break;
-			}
-			break;
-		case 1:
-			if (cd-- <= 0 && shooting_style != 0)
-				Shoting();
-			if (series++ == 80)
-			{
-				status++;
-				setMovement(flyout);
-			}
-			break;
-		case 2:
-			Moving();
-			break;
-		}
+		Moving();
 	}
 	else
 	{
@@ -107,7 +85,6 @@ void BaseEnemy::draw(sf::RenderTarget& target, sf::RenderStates states)const
 		}
 }
 
-
 void BaseEnemy::Damage(int D)
 {
 	if (Health > 0)
@@ -117,6 +94,7 @@ void BaseEnemy::Damage(int D)
 		alive = false;
 	}
 }
+
 bool BaseEnemy::ShotCollision(sf::FloatRect a)
 {
 
@@ -170,14 +148,14 @@ void BaseEnemy::Moving()
 
 void BaseEnemy::Shoting()
 {
-	if (shoot_target != sf::Vector2f(0.0, 0.0))
+	if (target_position != sf::Vector2f(0.0, 0.0))
 	{
-		sf::Vector2f tan = shoot_target - SBaseEnemy.getPosition();
+		sf::Vector2f tan = target_position - SBaseEnemy.getPosition();
 		double alpha = atan2(tan.y, tan.x);
 
 		switch (shooting_style)
 		{
-		case 0:
+		case 1:
 			if (ProCount >= MaxCount)
 				ProCount = 0;
 			delete pro[ProCount];
@@ -185,7 +163,7 @@ void BaseEnemy::Shoting()
 			cd = 20;
 			break;
 
-		case 1:
+		case 2:
 
 			for (double i = 0.0; i < 0.4; i += 0.2)
 			{

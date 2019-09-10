@@ -43,6 +43,12 @@
     <Filter Include="Pliki zasobów\Enemies\BaseEnemies">
       <UniqueIdentifier>{a74bf489-ec5c-4603-914b-1ed53ee30714}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki zasobów\Enemies\OneStopEnemy">
+      <UniqueIdentifier>{fdb05e44-c489-44bc-9a50-71216b9c33ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\Enemies\MedusaEnemy">
+      <UniqueIdentifier>{5d736fb9-0334-42cd-813a-c446d9bf8bb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -72,6 +78,12 @@
     <ClInclude Include="ParaboleEnemy.h">
       <Filter>Pliki zasobów\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="OneStopEnemy.h">
+      <Filter>Pliki zasobów\Enemies\OneStopEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MedusaEnemy.h">
+      <Filter>Pliki zasobów\Enemies\MedusaEnemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -97,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="BaseEnemy.cpp">
       <Filter>Pliki zasobów\Enemies\BaseEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="OneStopEnemy.cpp">
+      <Filter>Pliki zasobów\Enemies\OneStopEnemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
