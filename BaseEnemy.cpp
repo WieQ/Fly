@@ -85,14 +85,16 @@ void BaseEnemy::draw(sf::RenderTarget& target, sf::RenderStates states)const
 		}
 }
 
-void BaseEnemy::Damage(int D)
+bool BaseEnemy::Damage(int D)
 {
 	if (Health > 0)
 		Health -= D;
 	if (Health <= 0)
 	{
 		alive = false;
+		return true;
 	}
+	return false;
 }
 
 bool BaseEnemy::ShotCollision(sf::FloatRect a)

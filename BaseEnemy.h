@@ -12,7 +12,6 @@ protected:
 	sf::Vector2f currentposition; //Base
 	sf::Vector2f road;//Base
 	sf::Vector2f road_speed;//Base
-	sf::Vector2f goal;
 	sf::Vector2f flyout;//Base
 
 	float speed;//Base
@@ -36,6 +35,7 @@ protected:
 	virtual bool ReachedGoal();//Base
 	virtual void Moving();
 	virtual void setMovement(sf::Vector2f Target);//Base
+	virtual void Shoting();
 
 public:
 	BaseEnemy() { alive = false; }
@@ -44,13 +44,13 @@ public:
 		int hp = 10, float ms = 1.0f/*movement speed*/, short s = 0 /*shooting style*/);
 	~BaseEnemy();
 	virtual void Tick(sf::Vector2f T);//Base
-	
+	sf::Vector2f GetPosition() { return SBaseEnemy.getPosition(); }
 	sf::FloatRect GetCollision() { return SBaseEnemy.getGlobalBounds(); }//Base
-	void Damage(int D);//Base
+	bool Damage(int D);//Base
 	bool ShotCollision(sf::FloatRect target);
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const;//Base
-	virtual void Shoting();
+
 	//Base
 };
 

@@ -49,6 +49,9 @@
     <Filter Include="Pliki zasobów\Enemies\MedusaEnemy">
       <UniqueIdentifier>{5d736fb9-0334-42cd-813a-c446d9bf8bb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki zasobów\PowerUP">
+      <UniqueIdentifier>{866a51aa-0630-4061-99a2-1a7cbcead343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -84,6 +87,9 @@
     <ClInclude Include="MedusaEnemy.h">
       <Filter>Pliki zasobów\Enemies\MedusaEnemy</Filter>
     </ClInclude>
+    <ClInclude Include="PowerUp.h">
+      <Filter>Pliki zasobów\PowerUP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -112,6 +118,12 @@
     </ClCompile>
     <ClCompile Include="OneStopEnemy.cpp">
       <Filter>Pliki zasobów\Enemies\OneStopEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="MedusaEnemy.cpp">
+      <Filter>Pliki zasobów\Enemies\MedusaEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUp.cpp">
+      <Filter>Pliki zasobów\PowerUP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

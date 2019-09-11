@@ -31,7 +31,8 @@ Character::Character(sf::FloatRect w): direction(true)
 	CHitBox = sf::Color(76, 0, 130);
 	SHitBox.setColor(CHitBox);
 	SHitBox.setOrigin(2, 2);
-	
+
+	damage = 5;
 
 	Teleport.loadFromFile("Character/Teleport.png");
 	STeleport.setTexture(Teleport);
@@ -171,8 +172,8 @@ bool Character::SetPosition()
 {
 	if (alive)
 	{
-		CurrentSprite.move(moving);
-		SHitBox.move(moving);
+		CurrentSprite.move(moving.x , moving.y);
+		SHitBox.move(moving.x , moving.y);
 		moving = sf::Vector2<float>(0.0f, 0.0f);
 		return true;
 	}
@@ -219,30 +220,128 @@ void Character::Shoting(sf::Vector2f T)
 	//shooting whenever you press Z 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
-		//checking if we aren't overflowing
-			if (ProCount >= MaxCount)
-				ProCount = 0;
-		//if pointer isn't we want to delete that projectile
-			if (pro[ProCount] != nullptr)
-				delete pro[ProCount];
-		//we are asigning new Projectile to pointer and then we are doing increment
-			pro[ProCount++] =  new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7,-0.5 );
-		//checking if we aren't overflowing
+		switch (damage)
+		{
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		{
+			//checking if we aren't overflowing
 			if (ProCount >= MaxCount)
 				ProCount = 0;
 			//if pointer isn't we want to delete that projectile
 			if (pro[ProCount] != nullptr)
 				delete pro[ProCount];
 			//we are asigning new Projectile to pointer and then we are doing increment
-			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png",sf::Vector2f(6,6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7,0.5);
-		
-		//last projectile is different so it's shooting from teleport location so if we leave our shadow somewhere projectile will be flying from shadow
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7);
+			break;
+		}
+		case 10:
+		case 11:
+		case 12:
+		case 13:
+		case 14:
+		{
+			if (teleport_viable)
+			{
+				//checking if we aren't overflowing
+				if (ProCount >= MaxCount)
+					ProCount = 0;
+				//if pointer isn't we want to delete that projectile
+				if (pro[ProCount] != nullptr)
+					delete pro[ProCount];
+				//we are asigning new Projectile to pointer and then we are doing increment
+				pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7);
+
+				//last projectile is different so it's shooting from teleport location so if we leave our shadow somewhere projectile will be flying from shadow
 				if (ProCount >= MaxCount)
 					ProCount = 0;
 				if (pro[ProCount] != nullptr)
 					delete pro[ProCount];
-				pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), teleport_viable == true ? sf::Vector2f(STeleport.getPosition().x, STeleport.getPosition().y -22): sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, 0);
-		//coldown showing us when we can shoot again  
+				pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), teleport_viable == true ? sf::Vector2f(STeleport.getPosition().x, STeleport.getPosition().y - 22) : sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, 0);
+				//coldown showing us when we can shoot again  
+				break;
+			}
+			//checking if we aren't overflowing
+			if (ProCount >= MaxCount)
+				ProCount = 0;
+			//if pointer isn't we want to delete that projectile
+			if (pro[ProCount] != nullptr)
+				delete pro[ProCount];
+			//we are asigning new Projectile to pointer and then we are doing increment
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, 0.2);
+			
+			//checking if we aren't overflowing
+			if (ProCount >= MaxCount)
+				ProCount = 0;
+			//if pointer isn't we want to delete that projectile
+			if (pro[ProCount] != nullptr)
+				delete pro[ProCount];
+			//we are asigning new Projectile to pointer and then we are doing increment
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, -0.2);
+			break;
+		}
+		case 15:
+			if (teleport_viable)
+			{
+				//checking if we aren't overflowing
+				if (ProCount >= MaxCount)
+					ProCount = 0;
+				//if pointer isn't we want to delete that projectile
+				if (pro[ProCount] != nullptr)
+					delete pro[ProCount];
+				//we are asigning new Projectile to pointer and then we are doing increment
+				pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, 0.2);
+
+				//checking if we aren't overflowing
+				if (ProCount >= MaxCount)
+					ProCount = 0;
+				//if pointer isn't we want to delete that projectile
+				if (pro[ProCount] != nullptr)
+					delete pro[ProCount];
+				//we are asigning new Projectile to pointer and then we are doing increment
+				pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, -0.2);
+
+				//last projectile is different so it's shooting from teleport location so if we leave our shadow somewhere projectile will be flying from shadow
+				if (ProCount >= MaxCount)
+					ProCount = 0;
+				if (pro[ProCount] != nullptr)
+					delete pro[ProCount];
+				pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), teleport_viable == true ? sf::Vector2f(STeleport.getPosition().x, STeleport.getPosition().y - 22) : sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, 0);
+				//coldown showing us when we can shoot again  
+				break;
+			}
+			//checking if we aren't overflowing
+			if (ProCount >= MaxCount)
+				ProCount = 0;
+			//if pointer isn't we want to delete that projectile
+			if (pro[ProCount] != nullptr)
+				delete pro[ProCount];
+			//we are asigning new Projectile to pointer and then we are doing increment
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, 0.5);
+
+			//checking if we aren't overflowing
+			if (ProCount >= MaxCount)
+				ProCount = 0;
+			//if pointer isn't we want to delete that projectile
+			if (pro[ProCount] != nullptr)
+				delete pro[ProCount];
+			//we are asigning new Projectile to pointer and then we are doing increment
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7, -0.5);
+			
+			//checking if we aren't overflowing
+			if (ProCount >= MaxCount)
+				ProCount = 0;
+			//if pointer isn't we want to delete that projectile
+			if (pro[ProCount] != nullptr)
+				delete pro[ProCount];
+			//we are asigning new Projectile to pointer and then we are doing increment
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/classic4.png", sf::Vector2f(6, 6), sf::Vector2f(SHitBox.getPosition().x, SHitBox.getPosition().y - 20), -7);
+			break;
+		}
+		
 		cd = 5;
 	}
 }
@@ -251,13 +350,13 @@ void Character::Shoting(sf::Vector2f T)
 bool Character::shotcollision(sf::FloatRect a)
 {
 	// creating floatingRect bounding box to compare it with enemy bounding box
-	sf::FloatRect boundigBox;
+	sf::FloatRect boundingBox;
 	for (unsigned int i = 0; i < MaxCount; ++i)
 	{
 		if (pro[i] != nullptr && pro[i]->isActive())
 		{
-			boundigBox = pro[i]->GetSprite().getGlobalBounds();
-			if (pro[i]->GetSprite().getPosition().y > 0 && a.intersects(boundigBox))
+			boundingBox = pro[i]->GetSprite().getGlobalBounds();
+			if (pro[i]->GetSprite().getPosition().y > 0 && a.intersects(boundingBox))
 			{
 				delete pro[i];
 				pro[i] = nullptr;
@@ -289,4 +388,14 @@ bool Character::Damage()
 	teleport_viable = false;
 	return alive = false;
 	
+}
+
+bool Character::incDMG()
+{
+	if (damage < 15)
+	{
+		damage++;
+		return true;
+	}
+	false;
 }

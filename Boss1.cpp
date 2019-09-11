@@ -74,7 +74,7 @@ void Boss1::Tick(sf::Vector2f T)
 
 			break;
 		case 1:
-			if (Health == 1000)
+			if (Health <= 1000)
 			{
 				status++;
 				setMovement(sf::Vector2f(250, 100));

@@ -33,6 +33,9 @@ private:
 		sf::Sprite STeleport;
 	// Sprite status Moving or flying
 		int wsprite;
+
+
+
 	//Projectile array (vector type)
 		std::vector<BaseProjectile*> pro;
 	//Projectile status and size;
@@ -40,7 +43,10 @@ private:
 		unsigned int MaxCount;
 	//Projectile cooldown
 	int cd;
-	
+	int damage;
+
+
+
 	//Flying speed
 	float speed;
 
@@ -55,6 +61,7 @@ private:
 	bool isMovingY;
 	void IsNearBorder();
 	void SlowDown();
+
 
 	//Status Bools
 	bool shoot;
@@ -83,5 +90,7 @@ public:
 	bool shotcollision(sf::FloatRect a);
 	bool charactercollision(sf::FloatRect a);
 	bool Damage();
+	int GetDamage() { return damage; };
+	bool incDMG();
 };
 #endif
