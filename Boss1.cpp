@@ -375,7 +375,7 @@ void Boss1::shoting_2_stage()
 				ProCount = 0;
 			if (pro[ProCount] != nullptr)
 				delete pro[ProCount];
-			pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile1.png", sf::Vector2f(6, 6), SBoss.getPosition(), sin(alpha) * 2, cos(alpha) * 2,alpha *180/3.14 -90);
+			pro[ProCount++] = new BaseProjectile("Character/Projectiles/BossProjectile1.png", sf::Vector2f(4, 6), SBoss.getPosition(), sin(alpha) * 2, cos(alpha) * 2,alpha *180/3.14 -90);
 		}
 		cd = 1;
 	}

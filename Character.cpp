@@ -102,8 +102,15 @@ void Character::Tick(sf::Vector2f Target)
 		SIdle.setTexture(Idle);
 		if (ProCount > 0)
 			for (unsigned int i = 0; i < MaxCount; ++i)
-				if(pro[i] != nullptr)
+				if (pro[i] != nullptr)
+				{
 					pro[i]->Tick();
+					if (!world.intersects(pro[i]->GetCollision()))
+					{
+						delete pro[i];
+						pro[i] = nullptr;
+					}
+				}
 		if (cd <= 0)
 			Shoting(Target);
 		else
@@ -387,7 +394,6 @@ bool Character::Damage()
 {
 	teleport_viable = false;
 	return alive = false;
-	
 }
 
 bool Character::incDMG()
