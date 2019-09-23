@@ -167,6 +167,7 @@
     <ClInclude Include="ParaboleEnemy.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PowerUp.h" />
+    <ClInclude Include="ScoreBoard.h" />
     <ClInclude Include="SinusProjectile.h" />
     <ClInclude Include="TargetProjectile.h" />
   </ItemGroup>
@@ -186,6 +187,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PowerUp.cpp" />
+    <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="SinusProjectile.cpp" />
   </ItemGroup>
   <ItemGroup>

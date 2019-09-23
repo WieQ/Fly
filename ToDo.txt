@@ -9,8 +9,7 @@ Lepsze Sprite Projectile; <Done>
 stwoyrzyæ lepszych przeciwników; <Done> <Info: Movement Poprawiony mniej dok³adny ale trzyma siê podstawionej prêdkoœci>
 stworzyæ 1 bossa <Done> 2 stage ;
 stworzyæ klasê bazow¹ do przeciwników i na jej podstawie tworzyæ ró¿nych przeciwników<Done>
-Basic class is not basic enough so i have to reduce some variable and than use it to make more advanced class;
-stworzyæ 1 stage;
-power upy;
-umiejêtnoœci;
+stworzyæ 1 stage <Done>;
+power upy <Done>?;
+
 

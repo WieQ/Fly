@@ -42,6 +42,7 @@ void MedusaEnemy::Tick(sf::Vector2f T)
 			flipbook = 0;
 			break;
 		}
+		SBaseEnemy.setTexture(TBaseEnemy);
 		if(move)
 			Moving();
 	}

@@ -49,8 +49,14 @@
     <Filter Include="Pliki zasobów\Enemies\MedusaEnemy">
       <UniqueIdentifier>{5d736fb9-0334-42cd-813a-c446d9bf8bb2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki zasobów\PowerUP">
+    <Filter Include="Pliki zasobów\PowerUP and ScoreBoard">
       <UniqueIdentifier>{866a51aa-0630-4061-99a2-1a7cbcead343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\PowerUP and ScoreBoard\PowerUP">
+      <UniqueIdentifier>{cb524a08-949a-4151-ac6a-f5a967cdef04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\PowerUP and ScoreBoard\ScoreBoard">
+      <UniqueIdentifier>{f26cfeda-a776-44ba-9013-fbe96d6c0ab1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,7 +94,10 @@
       <Filter>Pliki zasobów\Enemies\MedusaEnemy</Filter>
     </ClInclude>
     <ClInclude Include="PowerUp.h">
-      <Filter>Pliki zasobów\PowerUP</Filter>
+      <Filter>Pliki zasobów\PowerUP and ScoreBoard\PowerUP</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoard.h">
+      <Filter>Pliki zasobów\PowerUP and ScoreBoard\ScoreBoard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +132,10 @@
       <Filter>Pliki zasobów\Enemies\MedusaEnemy</Filter>
     </ClCompile>
     <ClCompile Include="PowerUp.cpp">
-      <Filter>Pliki zasobów\PowerUP</Filter>
+      <Filter>Pliki zasobów\PowerUP and ScoreBoard\PowerUP</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>Pliki zasobów\PowerUP and ScoreBoard\ScoreBoard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

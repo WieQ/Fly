@@ -8,7 +8,7 @@
 
 Character::Character(sf::FloatRect w): direction(true)
 {
-	
+	lives = 3;
 	canmoveleft = false;
 	canmoveright = false;
 	shoot = false;
@@ -58,72 +58,80 @@ Character::Character(sf::FloatRect w): direction(true)
 //Function called every frame
 void Character::Tick(sf::Vector2f Target)
 {
-	//Teleport to shadow
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	if (respwan-- < 1)
 	{
-		teleportposition = CurrentSprite.getPosition();
-		STeleport.setPosition(CurrentSprite.getPosition());
-		teleport_viable = true;
-	}
-	if (teleport_viable && sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-	{
-		CurrentSprite.setPosition(teleportposition);
-		SHitBox.setPosition(teleportposition.x,teleportposition.y-8);
-		teleport_viable = false;
-		if (!alive)
-			alive = true;
-	}
-	if (alive)
-	{
-		IsNearBorder();
-		SlowDown();
-		isMovingX = MoveX();
-		isMovingY = MoveY();
-		
-		if (!isMovingX && !isMovingY)
+		//Teleport to shadow
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 		{
-			switch (wsprite++)
-			{
-			case 10:
-				Idle.loadFromFile("Character/Idle.png");
-				break;
-			case 20:
-				Idle.loadFromFile("Character/Idle1.png");
-				break;
-			case 30:
-				Idle.loadFromFile("Character/Idle.png");
-				break;
-			case 40:
-				Idle.loadFromFile("Character/Idle2.png");
-				wsprite = 0;
-				break;
-			}
+			teleportposition = CurrentSprite.getPosition();
+			STeleport.setPosition(CurrentSprite.getPosition());
+			teleport_viable = true;
 		}
-		SIdle.setTexture(Idle);
-		if (ProCount > 0)
-			for (unsigned int i = 0; i < MaxCount; ++i)
-				if (pro[i] != nullptr)
-				{
-					pro[i]->Tick();
-					if (!world.intersects(pro[i]->GetCollision()))
-					{
-						delete pro[i];
-						pro[i] = nullptr;
-					}
-				}
-		if (cd <= 0)
-			Shoting(Target);
-		else
-			cd--;
+		if (teleport_viable && sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+		{
+			CurrentSprite.setPosition(teleportposition);
+			SHitBox.setPosition(teleportposition.x, teleportposition.y - 8);
+			teleport_viable = false;
+			if (!alive)
+				alive = true;
+		}
+		if (alive)
+		{
+			if (invicible > 0)
+				invicible--;
 
-		//Character Movement
-	
-		SetPosition();
-	}
-	else
-	{
-		CurrentSprite.setPosition(0.0f, 0.0f);
-		SHitBox.setPosition(0.0f, 0.0f);
+			IsNearBorder();
+			SlowDown();
+			isMovingX = MoveX();
+			isMovingY = MoveY();
+
+			if (!isMovingX && !isMovingY)
+			{
+				switch (wsprite++)
+				{
+				case 10:
+					Idle.loadFromFile("Character/Idle.png");
+					break;
+				case 20:
+					Idle.loadFromFile("Character/Idle1.png");
+					break;
+				case 30:
+					Idle.loadFromFile("Character/Idle.png");
+					break;
+				case 40:
+					Idle.loadFromFile("Character/Idle2.png");
+					wsprite = 0;
+					break;
+				}
+			}
+			SIdle.setTexture(Idle);
+			if (ProCount > 0)
+				for (unsigned int i = 0; i < MaxCount; ++i)
+					if (pro[i] != nullptr)
+					{
+						pro[i]->Tick();
+						if (!world.intersects(pro[i]->GetCollision()))
+						{
+							delete pro[i];
+							pro[i] = nullptr;
+						}
+					}
+			if (cd <= 0)
+				Shoting(Target);
+			else
+				cd--;
+
+			//Character Movement
+
+			SetPosition();
+			if (invicible > 0)
+				Idle.loadFromFile("Character/invicible.png");
+		}
+		else
+		{
+			CurrentSprite.setPosition(0.0f, 0.0f);
+			SHitBox.setPosition(0.0f, 0.0f);
+		}
 	}
 }
 
@@ -190,8 +198,9 @@ bool Character::SetPosition()
 //inherited methods which draw character on window
 void Character::draw(sf::RenderTarget& target, sf::RenderStates states)const
 {
-	if (alive)
+	if (alive && respwan < 1)
 	{
+		
 		if (teleport_viable)
 			target.draw(STeleport, states);
 		target.draw(CurrentSprite, states);
@@ -356,44 +365,66 @@ void Character::Shoting(sf::Vector2f T)
 //Collision with bullets from enemies
 bool Character::shotcollision(sf::FloatRect a)
 {
-	// creating floatingRect bounding box to compare it with enemy bounding box
-	sf::FloatRect boundingBox;
-	for (unsigned int i = 0; i < MaxCount; ++i)
+	if (alive)
 	{
-		if (pro[i] != nullptr && pro[i]->isActive())
+		// creating floatingRect bounding box to compare it with enemy bounding box
+		sf::FloatRect boundingBox;
+		for (unsigned int i = 0; i < MaxCount; ++i)
 		{
-			boundingBox = pro[i]->GetSprite().getGlobalBounds();
-			if (pro[i]->GetSprite().getPosition().y > 0 && a.intersects(boundingBox))
+			if (pro[i] != nullptr && pro[i]->isActive())
 			{
-				delete pro[i];
-				pro[i] = nullptr;
-				return true;
+				boundingBox = pro[i]->GetSprite().getGlobalBounds();
+				if (pro[i]->GetSprite().getPosition().y > 0 && a.intersects(boundingBox))
+				{
+					delete pro[i];
+					pro[i] = nullptr;
+					return true;
+				}
 			}
 		}
+		return false;
 	}
-	return false;
 } 
 
 // Colision with Enemies
 bool Character::charactercollision(sf::FloatRect a)
 {
-	// creating colision box based on HitBox Sprite
-	sf::FloatRect boundigBox = SHitBox.getGlobalBounds();
-	
-	//whenever enemies is inside HitBox Collision spot we are returning true
-	if (a.intersects(boundigBox))
+	if (alive)
 	{
-		return true;
+		// creating colision box based on HitBox Sprite
+		sf::FloatRect boundigBox = SHitBox.getGlobalBounds();
+
+		//whenever enemies is inside HitBox Collision spot we are returning true
+		if (a.intersects(boundigBox))
+		{
+			return true;
+		}
+		return false;
 	}
-	return false;
 }
 
 //Damaging Character always based on Collision function so whenever
 //Collision function is called we shot call this function afterwards
 bool Character::Damage()
 {
-	teleport_viable = false;
-	return alive = false;
+	if (alive && invicible < 1)
+	{
+		if (--lives > 0)
+		{
+			CurrentSprite.setPosition(startpoint);
+			SHitBox.setPosition(startpoint.x,startpoint.y-8);
+			teleport_viable = false;
+			invicible = 180;
+			respwan = 60;
+		}
+		else
+		{
+			alive = false;
+		}
+		return true;
+	}
+	return false;
+	
 }
 
 bool Character::incDMG()

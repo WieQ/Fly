@@ -44,6 +44,9 @@ private:
 	//Projectile cooldown
 	int cd;
 	int damage;
+	int lives;
+	int invicible;
+	int respwan;
 
 
 
@@ -90,7 +93,8 @@ public:
 	bool shotcollision(sf::FloatRect a);
 	bool charactercollision(sf::FloatRect a);
 	bool Damage();
-	int GetDamage() { return damage; };
+	int GetDamage() { return damage; }
+	int Getlives() { return lives; }
 	bool incDMG();
 };
 #endif
