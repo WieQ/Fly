@@ -365,7 +365,7 @@ void Character::Shoting(sf::Vector2f T)
 //Collision with bullets from enemies
 bool Character::shotcollision(sf::FloatRect a)
 {
-	if (alive)
+	if (alive && invicible < 1)
 	{
 		// creating floatingRect bounding box to compare it with enemy bounding box
 		sf::FloatRect boundingBox;
@@ -384,6 +384,7 @@ bool Character::shotcollision(sf::FloatRect a)
 		}
 		return false;
 	}
+	return false;
 } 
 
 // Colision with Enemies
