@@ -206,12 +206,12 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates states)const
 		target.draw(CurrentSprite, states);
 		target.draw(SHitBox, states);
 		
-		if (MaxCount > 0)
-			for (unsigned int i = 0; i < MaxCount; ++i)
-			{
-				if (pro[i] != nullptr && pro[i]->GetCollision().intersects(world))
-					target.draw(*pro[i], states);
-			}
+		
+	}
+	for (unsigned int i = 0; i < MaxCount; ++i)
+	{
+		if (pro[i] != nullptr && pro[i]->GetCollision().intersects(world))
+			target.draw(*pro[i], states);
 	}
 }
 
@@ -365,7 +365,7 @@ void Character::Shoting(sf::Vector2f T)
 //Collision with bullets from enemies
 bool Character::shotcollision(sf::FloatRect a)
 {
-	if (alive && invicible < 1)
+	if (alive)
 	{
 		// creating floatingRect bounding box to compare it with enemy bounding box
 		sf::FloatRect boundingBox;
@@ -422,6 +422,15 @@ bool Character::Damage()
 		{
 			alive = false;
 		}
+		for (size_t i = 0; i < MaxCount; ++i)
+		{
+			if (pro[i] != nullptr)
+			{
+				delete pro[i];
+				pro[i] = nullptr;
+			}
+		}
+		ProCount = 0;
 		return true;
 	}
 	return false;
